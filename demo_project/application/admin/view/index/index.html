@@ -1,0 +1,64 @@
+{extend name="common/base"/}
+
+{block name="content"}
+
+<!-- 标题 -->
+<div class="main-title">
+    <h2>
+        {$nav_type ? $nav_type : '顶部'}导航栏
+    </h2>
+</div>
+
+<!-- 按钮工具栏 -->
+<div class="cf" >
+    <div class="fl">
+        <a class="btn" href="{$nav_type ? url('index/addFooterNav') : url('index/addNav')}">添 加</a>
+    </div>
+</div>
+
+
+<!-- 数据表格 -->
+<div class="data-table">
+    <table class="">
+        <thead>
+        <tr>
+            <th class="">编号</th>
+            <th class="">名称</th>
+            <th class="">URL</th>
+            <th class="">排序</th>
+            <th class="">新开窗口</th>
+            <th class="">状态</th>
+            <th class="">最后更新</th>
+            <th class="">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {notempty name="nav_list"}
+        {volist name="nav_list" id="nav"}
+        <tr>
+            <td>{$nav['_id']}</td>
+            <td>{$nav['title']}</td>
+            <td>{$nav['url']}</td>
+            <td>{$nav['sort']}</td>
+            <td>{$nav['target']==1 ? '是' : '否'}</td>
+            <td>{$nav['status']==1 ? '<font color="red">禁用</font>' : '<font color="green">启用</font>'}</td>
+            <td>{:getDateFromTimestamp($nav['updateAt'])}</td>
+            <td>
+                <a href="{$nav_type ? url('index/editFooterNav',['id'=>$nav['_id']]) : url('index/editNav',['id'=>$nav['_id']])}">编辑</a>
+                <a href="{$nav_type ? url('index/delFooterNav',['id'=>$nav['_id']]) : url('index/delNav',['id'=>$nav['_id']])}" class="confirm ajax-get">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        {/notempty}
+        </tbody>
+    </table>
+
+
+</div>
+
+<!-- 分页 -->
+<div class="page">
+    <div></div>
+</div>
+
+{/block}

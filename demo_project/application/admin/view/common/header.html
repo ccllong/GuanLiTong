@@ -1,0 +1,23 @@
+<div class="header">
+    <!-- Logo -->
+    <a href="http://ie.flyme.cn" target="_blank"><span class="logo"></span></a>
+    <!-- /Logo -->
+
+    <!-- 主导航 -->
+    <ul class="main-nav">
+        <li {if condition="$controller_name eq 'Index'"}class="current"{/if}><a href="{:url('index/index')}">首页</a></li>
+        <li {if condition="$controller_name eq 'News'"}class="current"{/if}><a href="{:url('news/index')}">新闻</a></li>
+        <li {if condition="$controller_name eq 'Page'"}class="current"{/if}><a href="{:url('page/index')}">单页</a></li>
+        <li {if condition="$controller_name eq 'Admin'"}class="current"{/if}><a href="{:url('admin/index')}">管理</a></li>
+    </ul>
+    <!-- /主导航 -->
+
+    <!-- 用户栏 -->
+    <div class="user-bar">
+        <a href="javascript:;" class="user-entrance"><i class="icon-user"></i></a>
+        <ul class="nav-list user-menu hidden">
+            <li class="manager">你好，<em title="{$user['username']}">{$user['username']}</em></li>
+            <li><a href="{:url('admin/user/logout')}">退出</a></li>
+        </ul>
+    </div>
+</div>

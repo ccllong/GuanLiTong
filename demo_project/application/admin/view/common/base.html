@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>管理平台</title>
+    {include file="common/head"/}
+    {block name="head"}{/block}
+</head>
+<body>
+<!-- 头部 -->
+{include file="common/header"/}
+<!-- /头部 -->
+
+<!-- 边栏 -->
+<div class="sidebar">
+    <!-- 子导航 -->
+    <div id="subnav" class="subnav">
+        {volist name="menu_ary" id="sub_menu"}
+            {notempty name="sub_menu"}
+                {notempty name="key"}<h3><i class="icon"></i>{$key}</h3>{/notempty}
+                <ul class="side-sub-menu">
+                    {volist name="sub_menu" id="url"}
+                        <li {if condition="(url($controller_name.'/'.$action_name) eq $url) || ($current_url eq $url)"} class="current"{/if}>
+                            <a class="item" href="{$url}">{$key}</a>
+                        </li>
+                    {/volist}
+                </ul>
+            {/notempty}
+        {/volist}
+        {block name="subnav"}{/block}
+    </div>
+    <script>
+        $(function () {
+            $(".side-sub-menu li").hover(function () {
+                $(this).addClass("hover");
+            }, function () {
+                $(this).removeClass("hover");
+            });
+        })
+    </script>
+    <!-- /子导航 -->
+</div>
+<!-- /边栏 -->
+
+<!-- 内容区 -->
+<div id="main-content">
+    <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+        <button class="close fixed" style="margin-top: 4px;">×</button>
+        <div class="alert-content">这是内容</div>
+    </div>
+    <div id="main" class="main">
+        {block name="content"}{/block}
+    </div>
+</div>
+<!-- /内容区 -->
+
+<!-- 尾部 -->
+{include file="common/footer"/}
+<!-- /尾部 -->
+</body>
+</html>

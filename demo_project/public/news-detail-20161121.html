@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>魅族互娱-新闻详情</title>
+    <meta name="renderer" content="webkit">
+<meta name="keywords" content="魅族，互娱，手机，游戏，魅族互娱，魅族互娱官网，魅族游戏中心，魅族游戏，游戏中心，魅族游戏发行，魅族发行，魅族游戏俱乐部，魅族俱乐部，游戏俱乐部，MGC，MEIZU GAME，MEIZU GAME CLUB，有你才好玩，魅族泛娱乐，泛娱乐，精品游戏，单机游戏，单机，网游，网络游戏，游戏独代，游戏联运">
+<meta name="description" content="魅族互娱成立于2016年4月13日，是魅族旗下专注于发行和运营高品质手机游戏产品的互动娱乐部门，秉承着“有你更好玩”的品牌理念，游戏平台和游戏发行两大业务并行，不断挖掘精品游戏、引入优质资源，并成立魅族游戏俱乐部（MEIZU GAME CLUB 简称：MGC），实现精细化运营，为用户提供更多体验与福利">
+<link href="./images/common/favicon.ico" rel="shortcut icon">
+<script>
+    var globalVar=null;
+</script>
+    <script src="./js/fill.js"></script>
+    <link rel="stylesheet" href="./css/game-news.css">
+</head>
+<body>
+
+    <!--主站导航 s-->
+    <div class="main-nav--white main-nav-mobile--black">
+    <!--[if lte IE 8]>
+<style type="text/css">
+    /********兼容提示样式********/
+    .browser-upgrade{width:100%;height:40px;line-height:40px;position:fixed;z-index:999;top:0;left:0;text-align:center;font-size:1.6em;border:1px solid #d1eefa;background:#eaf8fe;}
+    .browser-upgrade__icon{width:16px;height:16px;margin:12px 5px 0 0;}
+    .browser-upgrade__close{width:40px;height:40px;font-size:1.6em;position:absolute;top:0;right:0;font-weight:normal;color:#91c8de;}
+    .browser-upgrade__link{text-decoration: underline;padding:0 10px;}
+</style>
+<div class="browser-upgrade" id="browserUpgrade"><img src="./images/common/alert_icon.png" alt="" class="browser-upgrade__icon">你的浏览器版本过低，请到<a href="http://browsehappy.osfipin.com/" class="browser-upgrade__link">这里</a>更新，以获取最佳体验!<a href="javascript:closeBrowserUpgrade();" class="browser-upgrade__close">╳</a></div>
+<script type="text/javascript">
+    function closeBrowserUpgrade(){
+        var alertO=document.getElementById('browserUpgrade');
+        alertO.style.display='none';
+    }
+</script>
+<![endif]-->
+<div ms-controller="main-nav__model" class="ms-controller">
+    <div class="container container--absolute" id="mian-nav">
+        <div class="container__con container__con--width mian-nav clearfix">
+            <a ms-attr="{href:@indexLink.url,title:@indexLink.title}" class="site-logo">
+                <img src="images/common/logo.png" alt="" class="site-logo__img site-logo__img--white">
+                <img src="images/common/logo-black.png" alt="" class="site-logo__img site-logo__img--black">
+            </a>
+            <div class="main-nav__list main-nav__list--right" >
+                <a ms-for="link in @navLink" data-main-nav="1" ms-attr="{href:link.url,title:link.title,target:link.target === 1 ? '_blank' : ''}" class="main-nav__link">{{link.title}}</a>
+            </div>
+            <a href="javascript:void(0);" class="main-nav__btn-mobile" id="main-nav__btn-mobile"><img src="images/common/nav.png" alt="" class="main-nav__btn-mobile-img main-nav__btn-mobile-img--white"><img src="images/common/nav-black.png" alt="" class="main-nav__btn-mobile-img main-nav__btn-mobile-img--black"></a>
+        </div>
+    </div>
+    <div class="main-nav-mobile" id="main-nav-mobile">
+        <div class="main-nav-mobile__title clearfix">
+            <a ms-attr="{href:@indexLink.url,title:@indexLink.title}" class="mobile-site-logo"><img src="images/common/logo-black.png" alt="" class="mobile-site-logo__img"></a>
+            <a href="javascript:void(0);" class="main-nav-mobile__close" id="main-nav-mobile__close"><img src="images/common/close.png" alt="" class="main-nav-mobile__close-img"></a>
+        </div>
+        <ul class="main-nav-mobile__list" >
+            <li class="main-nav-mobile__link" ms-for="link in @navLink"><a data-main-nav="1" ms-attr="{href:link.url,title:link.title,target:link.target === 1 ? '_blank' : ''}" class="main-nav-mobile__link__item">{{link.title}}</a></li>
+        </ul>
+    </div>
+</div>
+    </div>
+    <!--主站导航 e-->
+
+    <!--主内容 s-->
+    <h1 class="text-hide">魅族互娱新闻列表</h1>
+<div class="container">
+    <div class="container__con">
+        <div class="game-news">
+            <div class="game-news__con">
+                <dl class="game-news__nav">
+    <dt class="game-news__nav-title"><span class="game-news__nav-title-con">新闻列表</span></dt>
+    <!--<dd class="game-news__nav-con"><a href="game-news-2017.html" class="game-news__nav-item">2017年</a></dd>-->
+    <!--<dd class="game-news__nav-con"><a href="game-news-2016.html" class="game-news__nav-item">2016年</a></dd>-->
+    <dd ms-for="item in @newsClassList" class="game-news__nav-con"><a class="game-news__nav-item" ms-attr="{href:'game-news.html?id='+item.cid}" ms-class="[(item.cid === @nowId || item.cid === @nowClassId) && 'active']">{{item.cate_name}}</a></dd>
+</dl>
+                <div class="game-news__about">
+                    <div class="game-news__detail">
+                        <h3>魅族互娱首届嘉年华—三亚站精彩回顾</h3>
+                        <p>11月18日-20日，魅族互娱在海南三亚举行了为期三天两夜的首届魅族互娱嘉年华，邀请了来自全国的60名核心玩家，来亲身体验魅族游戏俱乐部MGC的特权。此次活动秉承了“有你才好玩”的理念，邀请了许多合作CP，包括杭州无端科技，其带来了极具紧张感的《生死狙击》；北京掌趣携《3D坦克争霸2》震撼来袭；英雄互娱更是带来了《装甲联盟》、《无尽争霸》和《全民枪战》助阵;最后当然少不了第九城市，其与魅族互娱联合发行了《红龙传说》，非常值得期待。</p>
+                        <img src="./images/gameNews/new1/1.jpg" alt="新闻配图">
+                        <img src="./images/gameNews/new1/2.jpg" alt="新闻配图">
+                        <img src="./images/gameNews/new1/3.jpg" alt="新闻配图">
+                        <p>本次嘉年华的活动阵容超级豪华，有美食、美酒、美女、游艇和飞机。此次魅族互娱举办的嘉年华也是开创了游戏俱乐部豪华线下盛宴的新时代，其标准远超以往的其他线下活动。</p>
+                        <img src="./images/gameNews/new1/4.jpg" alt="新闻配图">
+                        <img src="./images/gameNews/new1/5.jpg" alt="新闻配图">
+                        <img src="./images/gameNews/new1/6.jpg" alt="新闻配图">
+                        <h4>MGC尊贵服务初体验</h4>
+                        <p>18日早上，来自五湖四海的60名核心玩家到达机场后，有专人专车接送，让玩家刚落地三亚就开始享受到魅族游戏俱乐部MGC的特权服务。</p>
+                        <img src="./images/gameNews/new1/7.jpg" alt="新闻配图">
+                        <p>玩家们到达酒店后，就去签到区签到，并且领取高大上的人手礼包。但是惊喜还在后面，所有玩家都入住五星级酒店，享受五星级服务，体验三亚的碧海蓝天。</p>
+                        <p>不少玩家在参与魅族互娱嘉年华之前都不太熟悉，但是没有关系，只需要一场好玩有趣的破冰游戏就能完美解决。破冰游戏开始前，玩家们被分配到6个不同的队伍中，一开始大家都因为陌生而有些不适应，可是游戏一旦开始，每个玩家热情高涨。海上拔河比赛完全不怕湿身，更有玩家直接采用躺到海中战术，他们说：一切为了部落。</p>
+                        <p>夕阳渐渐洒满了整个海面，玩家们换上MGC统一的服装后，精神抖擞地出现在晚宴现场。晚宴除了有让人垂涎欲滴的五星级美食自助餐以外，还有精彩有趣的现场节目。</p>
+                        <img src="./images/gameNews/new1/8.jpg" alt="新闻配图">
+                        <p>晚宴一开始，玩家们就被内衣秀吸睛，金发长腿美女在台上走秀，婀娜多姿的身材与专业的表演引来了玩家们的阵阵欢呼。随后，魅族科技副总裁杨颜上台跟玩家们分享了自己的游戏经历，与玩家们互动，最后表达了对玩家们与魅族互娱的祝愿。</p>
+                        <img src="./images/gameNews/new1/9.jpg" alt="新闻配图">
+                        <p>据说《红龙传说》是第九城市耗时两年研发的心血之作，并且之前在韩国、台湾等地上线时取得了不俗的市场成绩。并且根据玩家在魅族游戏中心的活跃度、在线时长等综合条件考核，魅族游戏俱乐部MGC在现场送出了纯金打造的尊贵VIP会员金卡，回馈这些忠实的核心玩家。</p>
+                        <img src="./images/gameNews/new1/10.jpg" alt="新闻配图">
+                        <p>魅族游戏俱乐部MGC“决战掌萌人”女主播招募活动也在当晚决出了，女主播377最终夺得桂冠，获得奖金20万元，还和魅族互娱签约一年。</p>
+                        <img src="./images/gameNews/new1/11.jpg" alt="新闻配图">
+                        <p>既然是魅族互娱嘉年华活动，又怎么能少得了游戏。于是现场进行了《全民枪战》现场PK，六组成员两两对抗，率先完成击杀数的队伍胜出，胜出队伍晋级下一轮，直到队伍产生，队伍获得MGC消费券1000元。PK现场非常精彩刺激，还有专业解说现场实时分析战况，让没能参与游戏到玩家们都能过一把瘾。</p>
+                        <img src="./images/gameNews/new1/12.jpg" alt="新闻配图">
+                        <p>除了《全民枪战》现场PK以外，还有《王者荣耀》对决。台下玩家报名十分踊跃，最后杨颜和刘聪各率领一支队伍，5V5实时对决，率先把对方保护塔摧毁的获胜，获胜队伍同样获得MGC消费券1000元。</p>
+                        <h4>体验之旅</h4>
+                        <p>继18日的初体验后，19日就开启了魅族互娱体验之旅。第一个活动项目就是冲上云霄，让玩家们坐上直升机，亲身俯瞰整个三亚。</p>
+                        <img src="./images/gameNews/new1/13.jpg" alt="新闻配图">
+                        <p>一切准备就绪后，玩家们相继“上天”。不少玩家都是第一次乘坐直升机，纷纷表示：太爽了。</p>
+                        <img src="./images/gameNews/new1/14.jpg" alt="新闻配图">
+                        <p>俯瞰完整个三亚的风光之后，玩家们上了豪华游艇。向着远方驶去，带玩家们去看更美的风景。</p>
+                        <img src="./images/gameNews/new1/15.jpg" alt="新闻配图">
+                        <p>玩家们坐上摩托艇，不再局限于摩托艇游戏在指尖上的快乐，而是亲身体验极速驰骋的快感。</p>
+                        <img src="./images/gameNews/new1/16.jpg" alt="新闻配图">
+                        <p>还有香蕉船和水上飞龙项目，满足不同玩家的需求。</p>
+                        <img src="./images/gameNews/new1/17.jpg" alt="新闻配图">
+                        <p>上天之后还能入海，玩家们享受浮潜带来的乐趣。</p>
+                        <img src="./images/gameNews/new1/18.jpg" alt="新闻配图">
+                        <p>疯狂玩耍以后，坐在海边吃一顿美味的沙滩BBQ，海风拂面，觥筹交错，快意人生。</p>
+                        <img src="./images/gameNews/new1/19.jpg" alt="新闻配图">
+                        <p>魅族互娱首届嘉年华已完美落幕，让我们看到了魅族互娱在游戏领域坚持为用户谋取更多福利的用心和坚定，相信未来的魅族互娱会越走越远。</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!--主内容 s-->
+
+    <!--页面脚注 s-->
+    <div class="container" ms-controller="main-footer__model">
+    <div class="container__con footer-con">
+        <div class="footer-con__main">
+            <div class="footer-con__list">
+                <!--<div class="footer-con__link">-->
+                    <!--<a href="http://hr.meizu.com/" target="_blank" class="footer-con__link__item footer-con__link__item&#45;&#45;first">人才招聘</a>-->
+                    <!--<a href="http://www.flyme.cn/" target="_blank" class="footer-con__link__item">Flyme官网</a>-->
+                    <!--<a href="http://app.meizu.com/games/public/index/" target="_blank" class="footer-con__link__item">魅族游戏中心</a>-->
+                    <!--<a href="http://gamebbs.meizu.com/" target="_blank" class="footer-con__link__item footer-con__link__item&#45;&#45;last">魅族游戏论坛</a>-->
+                <!--</div>-->
+                <div class="footer-con__link">
+                    <a ms-for="(index,link) in @navLink" ms-attr="{href:link.url,title:link.title,target:link.target === 1 ? '_blank' : ''}" class="footer-con__link__item" ms-class="[index === 0 && 'footer-con__link__item--first',index === @navLink.length-1 && 'footer-con__link__item--last']">{{link.title}}</a>
+                </div>
+                <div class="footer-con__attention"><span class="attention-con">关注我们：</span><a href="javascript:void(0);" class="attention-con wechat-qrcode-con" id="wechatQrcode"><img src="./images/common/wxlogo.png" alt="" class="footer-con__platform-logo"><img
+                        src="./images/common/wxlogo-active.png" class="footer-con__platform-logo footer-con__platform-logo--active" alt=""><b class="footer-con__platform-name">微信公众号</b><img
+                        src="./images/common/wechat-qrcode2x.png" alt="微信二维码" class="wechat-qrcode"></a><a href="http://weibo.com/u/5558270819" class="attention-con" target="_blank"><img src="./images/common/wblogo.png" alt="" class="footer-con__platform-logo"><img
+                        src="./images/common/wblogo-active.png" class="footer-con__platform-logo footer-con__platform-logo--active" alt=""><b class="footer-con__platform-name">新浪微博</b></a></div>
+            </div>
+            <p class="footer-con__copyright">粤ICP备13003602号-2 粤B2-20130198 营业执照 法律声明  粤公网安备 44049102496009 号     Select Region</p>
+            <p class="footer-con__copyright">珠海市魅族通讯设备有限公司     地址：广东省珠海市唐家湾科技创新海岸魅族科技楼 电话：0756-6130440</p>
+            <p class="footer-con__copyright footer-con__copyright--last">© 2017 Meizu Telecom Equipment Co., Ltd. All rights reserved</p>
+            <p class="footer-con__copyright footer-con__copyright--mobile">粤ICP备13003602号-2 粤B2-20130198 营业执照 法律声明</p>
+            <p class="footer-con__copyright footer-con__copyright--mobile">粤公网安备 44049102496009 号     Select Region</p>
+            <p class="footer-con__copyright footer-con__copyright--mobile">珠海市魅族通讯设备有限公司</p>
+            <p class="footer-con__copyright footer-con__copyright--mobile">地址：广东省珠海市唐家湾科技创新海岸魅族科技楼</p>
+            <p class="footer-con__copyright footer-con__copyright--mobile">电话：0756-6130440</p>
+            <p class="footer-con__copyright footer-con__copyright--mobile footer-con__copyright--last">© 2017 Meizu Telecom Equipment Co., Ltd. All rights reserved</p>
+        </div>
+    </div>
+</div>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?7b56b63cd77286a7f0144fb0cc7ce324";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    <!--页面脚注 e-->
+
+    <script src="./js/game-news.js"></script>
+</body>
+</html>

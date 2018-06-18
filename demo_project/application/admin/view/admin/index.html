@@ -1,0 +1,62 @@
+{extend name="common/base"/}
+
+{block name="content"}
+
+<!-- 标题 -->
+<div class="main-title">
+    <h2>
+        管理员列表
+    </h2>
+</div>
+
+<!-- 按钮工具栏 -->
+<div class="cf" >
+    <div class="fl">
+        <a class="btn" href="{:url('Admin/add')}">添 加</a>
+    </div>
+</div>
+
+
+<!-- 数据表格 -->
+<div class="data-table">
+    <table class="">
+        <thead>
+        <tr>
+            <th class="">编号</th>
+            <th class="">姓名</th>
+            <th class="">Flyme UID</th>
+            <th class="">状态</th>
+            <th class="">备注</th>
+            <th class="">最后更新</th>
+            <th class="">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {notempty name="list"}
+        {volist name="list" id="item"}
+        <tr>
+            <td>{$item['_id']}</td>
+            <td>{$item['name']}</td>
+            <td>{$item['flyme_uid']}</td>
+            <td>{$item['status']==1 ? '<font color="red">禁用</font>' : '<font color="green">启用</font>'}</td>
+            <td>{$item['remark']}</td>
+            <td>{:getDateFromTimestamp($item['updateAt'])}</td>
+            <td>
+                <a href="{:url('Admin/edit',['id'=>$item['_id']])}">编辑</a>
+                <a href="{:url('Admin/del',['id'=>$item['_id']])}" class="confirm ajax-get">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        {/notempty}
+        </tbody>
+    </table>
+
+
+</div>
+
+<!-- 分页 -->
+<div class="page">
+    <div></div>
+</div>
+
+{/block}

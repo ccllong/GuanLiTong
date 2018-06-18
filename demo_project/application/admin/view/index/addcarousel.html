@@ -1,0 +1,175 @@
+{extend name="common/base"/}
+
+{block name="content"}
+<div class="main-title">
+    <h2>
+        添加 / 编辑 轮播位
+    </h2>
+</div>
+
+<form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div class="form-item">
+        <label class="item-label">名称<span class="check-tips">（用于显示在导航上的文字）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="title" value="{$item['title'] ? $item['title'] : ''}">
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">上传图片<span class="check-tips">(图片不允许超过2M，宽度1920 X 高度680)</span></label>
+        <div class="controls">
+            <div id="current_img" style="margin-bottom: 25px;{if condition="!isset($item) || empty($item['img'])"}display: none{/if}"><img src="{$item['img'] ? $item['img'] : ''}" width="200" border="0" id="upload_img"/></div>
+            <input name="images" type="file" id="upload_file" value="上传图"/>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">上传2倍大图片<span class="check-tips">(图片不允许超过2M，宽度3840 X 高度1360)</span></label>
+        <div class="controls">
+            <div id="current_big_img" style="margin-bottom: 25px;{if condition="!isset($item) || empty($item['big_img'])"}display: none{/if}"><img src="{$item['big_img'] ? $item['big_img'] : ''}" width="200" border="0" id="upload_big_img"/></div>
+            <input name="big_images" type="file" id="upload_big_file" value="上传图"/>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">移动端图片<span class="check-tips">(图片不允许超过2M，宽度1080 X 高度980)</span></label>
+        <div class="controls">
+            <div id="current_mob_img" style="margin-bottom: 25px;{if condition="!isset($item) || empty($item['mob_img'])"}display: none{/if}"><img src="{$item['mob_img'] ? $item['mob_img'] : ''}" width="200" border="0" id="upload_mob_img"/></div>
+            <input name="mob_images" type="file" id="upload_mob_file" value="上传图"/>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">跳转URL<span class="check-tips">（用于导航点击的跳转链接，请带上http://前缀）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="url" value="{$item['url'] ? $item['url'] : ''}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">排序<span class="check-tips">（用于导航先后顺序，排序数越大越排前）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="sort" value="{$item['sort'] ? $item['sort'] : '0'}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">新窗口打开<span class="check-tips">（是否新窗口打开链接）</span></label>
+        <div class="controls">
+            <select name="target">
+                <option value="0" {if condition="isset($item['target']) && ($item['target'] eq 0)"}selected{/if}>否</option>
+                <option value="1" {if condition="isset($item['target']) && ($item['target'] eq 1)"}selected{/if}>是</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">状态<span class="check-tips"></span></label>
+        <div class="controls">
+            <select name="status">
+                <option value="0" {if condition="isset($item['status']) && ($item['status'] eq 0)"}selected{/if}>启用</option>
+                <option value="1" {if condition="isset($item['status']) && ($item['status'] eq 1)"}selected{/if}>禁用</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-item">
+        <input type="hidden" name="_id" value="{$item['_id'] ? $item['_id'] : ''}">
+        <input type="hidden" name="type" value="carousel"/>
+        <input type="hidden" name="img" id="img" value="{$item['img'] ? $item['img'] : ''}"/>
+        <input type="hidden" name="big_img" id="big_img" value="{$item['big_img'] ? $item['big_img'] : ''}"/>
+        <input type="hidden" name="mob_img" id="mob_img" value="{$item['mob_img'] ? $item['mob_img'] : ''}"/>
+        <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+        <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+    </div>
+</form>
+<script>
+    var uploading = false;
+
+    $("#upload_file").on("change", function(){
+        if(uploading){
+            alert("文件正在上传中，请稍候");
+            return false;
+        }
+        $.ajax({
+            url: "{:url('index/upload')}",
+            type: 'POST',
+            cache: false,
+            data: new FormData($('.form-horizontal')[0]),
+            processData: false,
+            contentType: false,
+            dataType:"json",
+            beforeSend: function(){
+                //uploading = true;
+            },
+            success : function(data) {
+                if (data.code == 1) {
+                    $("#upload_file").val('');
+                    $("#upload_img").attr("src", data.data);
+                    $("#img").val(data.data);
+                    $("#current_img").show();
+                } else {
+                    alert(data.msg);
+                }
+                uploading = false;
+            }
+        });
+    });
+
+    $("#upload_big_file").on("change", function(){
+        if(uploading){
+            alert("文件正在上传中，请稍候");
+            return false;
+        }
+        $.ajax({
+            url: "{:url('index/upload')}",
+            type: 'POST',
+            cache: false,
+            data: new FormData($('.form-horizontal')[0]),
+            processData: false,
+            contentType: false,
+            dataType:"json",
+            beforeSend: function(){
+                //uploading = true;
+            },
+            success : function(data) {
+                if (data.code == 1) {
+                    $("#upload_big_file").val('');
+                    $("#upload_big_img").attr("src", data.data);
+                    $("#big_img").val(data.data);
+                    $("#current_big_img").show();
+                } else {
+                    alert(data.msg);
+                }
+                uploading = false;
+            }
+        });
+    });
+
+    $("#upload_mob_file").on("change", function(){
+        if(uploading){
+            alert("文件正在上传中，请稍候");
+            return false;
+        }
+        $.ajax({
+            url: "{:url('index/upload')}",
+            type: 'POST',
+            cache: false,
+            data: new FormData($('.form-horizontal')[0]),
+            processData: false,
+            contentType: false,
+            dataType:"json",
+            beforeSend: function(){
+                //uploading = true;
+            },
+            success : function(data) {
+                if (data.code == 1) {
+                    $("#upload_mob_file").val('');
+                    $("#upload_mob_img").attr("src", data.data);
+                    $("#mob_img").val(data.data);
+                    $("#current_mob_img").show();
+                } else {
+                    alert(data.msg);
+                }
+                uploading = false;
+            }
+        });
+    });
+</script>
+{/block}

@@ -1,0 +1,67 @@
+{extend name="common/base"/}
+
+{block name="content"}
+
+<!-- 标题 -->
+<div class="main-title">
+    <h2>
+        轮播管理
+    </h2>
+</div>
+
+<!-- 按钮工具栏 -->
+<div class="cf" >
+    <div class="fl">
+        <a class="btn" href="{:url('index/addCarousel')}">添 加</a>
+    </div>
+</div>
+
+<!-- 数据表格 -->
+<div class="data-table">
+    <table class="">
+        <thead>
+        <tr>
+            <th class="">编号</th>
+            <th class="">名称</th>
+            <th class="">跳转URL</th>
+            <th class="">大图片</th>
+            <th class="">小图片</th>
+            <th class="">手机图片</th>
+            <th class="">排序</th>
+            <th class="">新开窗口</th>
+            <th class="">状态</th>
+            <th class="">最后更新</th>
+            <th class="">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {notempty name="list"}
+        {volist name="list" id="item"}
+        <tr>
+            <td>{$item['_id']}</td>
+            <td>{$item['title']}</td>
+            <td>{$item['url']}</td>
+            <td>{$item['big_img'] ? '<img src="'.$item['big_img'].'" width="200"/>' : ''}</td>
+            <td>{$item['img'] ? '<img src="'.$item['img'].'" width="200"/>' : ''}</td>
+            <td>{$item['mob_img'] ? '<img src="'.$item['mob_img'].'" width="200"/>' : ''}</td>
+            <td>{$item['sort']}</td>
+            <td>{$item['target']==1 ? '是' : '否'}</td>
+            <td>{$item['status']==1 ? '<font color="red">禁用</font>' : '<font color="green">启用</font>'}</td>
+            <td>{:getDateFromTimestamp($item['updateAt'])}</td>
+            <td>
+                <a href="{:url('index/editCarousel',['id'=>$item['_id']])}">编辑</a>
+                <a href="{:url('index/delCarousel',['id'=>$item['_id']])}" class="confirm ajax-get">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        {/notempty}
+        </tbody>
+    </table>
+</div>
+
+<!-- 分页 -->
+<div class="page">
+    <div></div>
+</div>
+
+{/block}

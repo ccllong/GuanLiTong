@@ -1,0 +1,55 @@
+{extend name="common/base"/}
+
+{block name="content"}
+
+<!-- 标题 -->
+<div class="main-title">
+    <h2>
+        分类列表
+    </h2>
+</div>
+
+<!-- 按钮工具栏 -->
+<div class="cf" >
+    <div class="fl">
+        <a class="btn" href="{:url('News/addCategory')}">添 加</a>
+    </div>
+</div>
+
+<!-- 数据表格 -->
+<div class="data-table">
+    <table class="">
+        <thead>
+        <tr>
+            <th class="">编号</th>
+            <th class="">分类名称</th>
+            <th style="display:none">URL</th>
+            <th class="">最后更新</th>
+            <th class="">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {notempty name="list"}
+        {volist name="list" id="item"}
+        <tr>
+            <td>{$item['_id']}</td>
+            <td>{$item['cate_name']}</td>
+            <td style="display:none"><a href="{:url('index/News/index',['cid'=>$item['_id']],true,true)}" target="_target">{:url('index/News/index',['cid'=>$item['_id']],true,true)}</a></td>
+            <td>{:getDateFromTimestamp($item['updateAt'])}</td>
+            <td>
+                <a href="{:url('News/editCategory',['id'=>$item['_id']])}">编辑</a>
+                <a href="{:url('News/delCategory',['id'=>$item['_id']])}" class="confirm ajax-get">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        {/notempty}
+        </tbody>
+    </table>
+</div>
+
+<!-- 分页 -->
+<div class="page">
+    <div></div>
+</div>
+
+{/block}

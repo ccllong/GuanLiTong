@@ -1,0 +1,48 @@
+{extend name="common/base"/}
+
+{block name="content"}
+<div class="main-title">
+    <h2>
+        添加 / 编辑 管理员
+    </h2>
+</div>
+
+<form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div class="form-item">
+        <label class="item-label">姓名<span class="must">*</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="name" value="{$item['name'] ? $item['name'] : ''}">
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">Flyme账号UID<span class="must">(可以在论坛的个人资料里获取到UID一项)</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="flyme_uid" value="{$item['flyme_uid'] ? $item['flyme_uid'] : ''}">
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">状态<span class="check-tips"></span></label>
+        <div class="controls">
+            <select name="status">
+                <option value="0" {if condition="isset($item['status']) && ($item['status'] eq 0)"}selected{/if}>启用</option>
+                <option value="1" {if condition="isset($item['status']) && ($item['status'] eq 1)"}selected{/if}>禁用</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">备注<span class="check-tips"></span></label>
+        <div class="controls">
+            <textarea class="textarea input-large" name="remark">{$item['remark'] ? $item['remark'] : ''}</textarea>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <input type="hidden" name="_id" value="{$item['_id'] ? $item['_id'] : ''}">
+        <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+        <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+    </div>
+</form>
+{/block}

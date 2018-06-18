@@ -1,0 +1,65 @@
+{extend name="common/base"/}
+
+{block name="content"}
+<div class="main-title">
+    <h2>
+        添加 / 编辑 分类
+    </h2>
+</div>
+
+<form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div class="form-item">
+        <label class="item-label">分类名称<span class="check-tips">（用于显示在导航上的文字）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="cate_name" value="{$item['cate_name'] ? $item['cate_name'] : ''}">
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">上传分类封面图片<span class="check-tips"></span></label>
+        <div class="controls">
+            <div id="current_img" style="margin-bottom: 25px;{if condition="!isset($item) || empty($item['img'])"}display: none{/if}"><img src="{$item['img'] ? $item['img'] : ''}" width="200" border="0" id="upload_img"/></div>
+            <input name="images" type="file" id="upload_file" value="上传图"/>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <input type="hidden" name="_id" value="{$item['_id'] ? $item['_id'] : ''}">
+        <input type="hidden" name="img" id="img" value="{$item['img'] ? $item['img'] : ''}"/>
+        <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+        <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+    </div>
+</form>
+<script>
+    var uploading = false;
+
+    $("#upload_file").on("change", function(){
+        if(uploading){
+            alert("文件正在上传中，请稍候");
+            return false;
+        }
+        $.ajax({
+            url: "{:url('news/upload')}",
+            type: 'POST',
+            cache: false,
+            data: new FormData($('.form-horizontal')[0]),
+            processData: false,
+            contentType: false,
+            dataType:"json",
+            beforeSend: function(){
+                uploading = true;
+            },
+            success : function(data) {
+                if (data.code == 1) {
+                    $("#upload_img").attr("src", data.data);
+                    $("#img").val(data.data);
+                    $("#current_img").show();
+                } else {
+                    alert(data.msg);
+                }
+                uploading = false;
+            }
+        });
+    });
+</script>
+{/block}

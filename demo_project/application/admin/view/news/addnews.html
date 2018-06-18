@@ -1,0 +1,130 @@
+{extend name="common/base"/}
+
+{block name="head"}
+<script type="text/javascript" charset="utf-8" src="/admin/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/admin/js/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/admin/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+{/block}
+
+
+{block name="content"}
+<div class="main-title">
+    <h2>
+        添加 / 编辑 新闻
+    </h2>
+</div>
+
+<form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div class="form-item">
+        <label class="item-label">名称<span class="must">*</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="title" value="{$item['title'] ? $item['title'] : ''}">
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">所属分类<span class="must">*</span></label>
+        <div class="controls">
+            <select name="cate_id">
+                {notempty name="cate_list"}
+                {volist name="cate_list" id="cate"}
+                <option value="{$key}" {if condition="isset($item['cate_id']) && ($item['cate_id'] eq $key)"}selected{/if}>{$cate}</option>
+                {/volist}
+                {/notempty}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">关键词<span class="check-tips"></span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="keyword" value="{$item['keyword'] ? $item['keyword'] : ''}">
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">文章简介<span class="check-tips"></span></label>
+        <div class="controls">
+            <textarea class="textarea" rows="12" cols="80" name="description">{$item['description'] ? $item['description'] : ''}</textarea>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">上传新闻封面<span class="check-tips">(图片不允许超过2M)</span></label>
+        <div class="controls">
+            <div id="current_img" style="margin-bottom: 25px;{if condition="!isset($item) || empty($item['cover'])"}display: none{/if}"><img src="{$item['cover'] ? $item['cover'] : ''}" width="200" border="0" id="upload_img"/></div>
+            <input name="images" type="file" id="upload_file" value="上传图"/>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">排序<span class="check-tips">（用于列表先后顺序，排序数越大越排前）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="sort" value="{$item['sort'] ? $item['sort'] : '0'}">
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">状态<span class="check-tips"></span></label>
+        <div class="controls">
+            <select name="status">
+                <option value="0" {if condition="isset($item['status']) && ($item['status'] eq 0)"}selected{/if}>启用</option>
+                <option value="1" {if condition="isset($item['status']) && ($item['status'] eq 1)"}selected{/if}>禁用</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">文章内容<span class="must">*（当前图片文件限制上传大小为最大10M）</span></label>
+        <div class="controls">
+            <script id="editor" type="text/plain" style="width:1024px;min-height:500px;">{$item['content'] ? $item['content'] : ''}</script>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <input type="hidden" name="_id" value="{$item['_id'] ? $item['_id'] : ''}"/>
+        <input type="hidden" name="cover" id="img" value="{$item['cover'] ? $item['cover'] : ''}"/>
+        <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+        <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+    </div>
+</form>
+<script>
+    var uploading = false;
+
+    $("#upload_file").on("change", function(){
+        if(uploading){
+            alert("文件正在上传中，请稍候");
+            return false;
+        }
+        $.ajax({
+            url: "{:url('index/upload')}",
+            type: 'POST',
+            cache: false,
+            data: new FormData($('.form-horizontal')[0]),
+            processData: false,
+            contentType: false,
+            dataType:"json",
+            beforeSend: function(){
+                uploading = true;
+            },
+            success : function(data) {
+                if (data.code == 1) {
+                    $("#upload_img").attr("src", data.data);
+                    $("#img").val(data.data);
+                    $("#current_img").show();
+                } else {
+                    alert(data.msg);
+                }
+                uploading = false;
+            }
+        });
+    });
+
+    //编辑器
+    var ue = UE.getEditor('editor',{
+        textarea:"content",
+        lang:"zh-cn",
+        serverUrl: "{:url('News/editor')}",//URL + "php/controller.php",
+    });
+</script>
+{/block}

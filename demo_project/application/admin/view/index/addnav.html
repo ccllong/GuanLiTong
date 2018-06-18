@@ -1,0 +1,57 @@
+{extend name="common/base"/}
+
+{block name="content"}
+<div class="main-title">
+    <h2>
+        添加 / 编辑 顶部导航栏
+    </h2>
+</div>
+
+<form action="" method="post" class="form-horizontal">
+    <div class="form-item">
+        <label class="item-label">名称<span class="check-tips">（用于显示在导航上的文字）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="title" value="{$nav['title'] ? $nav['title'] : ''}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">URL<span class="check-tips">（用于导航点击的跳转链接，请带上http://前缀）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="url" value="{$nav['url'] ? $nav['url'] : ''}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">排序<span class="check-tips">（用于导航先后顺序，排序数越大越排前）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="sort" value="{$nav['sort'] ? $nav['sort'] : '0'}">
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">新窗口打开<span class="check-tips">（是否新窗口打开链接）</span></label>
+        <div class="controls">
+            <select name="target">
+                <option value="0" {if condition="isset($nav['target']) && ($nav['target'] eq 0)"}selected{/if}>否</option>
+                <option value="1" {if condition="isset($nav['target']) && ($nav['target'] eq 1)"}selected{/if}>是</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-item">
+        <label class="item-label">状态<span class="check-tips"></span></label>
+        <div class="controls">
+            <select name="status">
+                <option value="0" {if condition="isset($nav['status']) && ($nav['status'] eq 0)"}selected{/if}>启用</option>
+                <option value="1" {if condition="isset($nav['status']) && ($nav['status'] eq 1)"}selected{/if}>禁用</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-item">
+        <input type="hidden" name="_id" value="{$nav['_id'] ? $nav['_id'] : ''}">
+        <input type="hidden" name="type" value="top"/>
+        <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+        <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+    </div>
+</form>
+
+{/block}
